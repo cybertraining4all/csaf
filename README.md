@@ -7,6 +7,8 @@
 
 The Cyber Security Awareness Framework (CSAF) is a structured approach aimed at enhancing cybersecurity awareness and understanding among individuals, organizations, and communities. It provides guidance for the development of effective cybersecurity awareness programs, covering key areas such as assessing awareness needs, creating educational materials, conducting training and simulations, implementing communication campaigns, and measuring awareness levels. By adopting this framework, organizations can foster a robust security culture, enhance their ability to detect and respond to cyber threats, and mitigate the risks associated with attacks and security breaches.
 
+This has been updated with additional labs not included with the CSAF. It also include update to the Kali image to include nmap and have permissions to use it out of the box.
+
 # Architecture
 
 ```mermaid

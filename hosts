@@ -15,6 +15,12 @@
 10.0.1.21	dvwa-bunkerweb.lab
 10.0.1.21	juiceshop-bunkerweb.lab
 10.0.1.21	wackopicko-bunkerweb.lab
+10.0.1.22   metasploitable2.lab
+10.0.1.23   shellshock.lab
+10.0.1.24   phpmyadmin.lab
+10.0.1.25   telnet.lab
+10.0.1.26   solr.lab
+10.0.1.27   tomcat.lab
 10.0.1.110	infectionmonkey.lab
 10.0.1.113	caldera.lab
 10.0.3.201	server.lab
@@ -27,6 +33,8 @@
 10.0.3.21	dvwa-bunkerweb.lab
 10.0.3.21	juiceshop-bunkerweb.lab
 10.0.3.21	wackopicko-bunkerweb.lab
+10.0.3.22   phpmyadmin-monitor.lab
+10.0.3.23   mysql.lab
 10.0.3.102	monitor.lab monitor
 10.0.3.30	wazuh-manager.lab
 10.0.3.31	wazuh-indexer.lab

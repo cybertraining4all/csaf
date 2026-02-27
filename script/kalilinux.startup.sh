@@ -1,5 +1,5 @@
 #!/bin/bash
-
+setcap cap_net_raw,cap_net_bind_service+eip /usr/lib/nmap/nmap
 mkdir -p ~/.vnc/
 rm -rf ~/.vnc/*.pid ~/.vnc/*.log /tmp/.X1*
 touch ~/.Xauthority

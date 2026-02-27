@@ -17,7 +17,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install \
     tigervnc-xorg-extension \
     tigervnc-viewer \
     novnc \
-    dbus-x11
+    dbus-x11 \
+    nmap
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install \
     xfce4-goodies \
     kali-desktop-xfce && \

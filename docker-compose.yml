@@ -13,6 +13,7 @@ services:
       - breachlab
       - soclab
       - ransomwarelab
+      - metasploitable
     ports:
       - ${BIND_ADDR:-0.0.0.0}:6080:8080
     environment:
@@ -161,6 +162,125 @@ services:
     networks:
       monitor:
         ipv4_address: 10.0.3.9
+
+#metasploitable2
+  metasploitable2:
+    image: 'tleemcjr/metasploitable2'
+    hostname: metasploitable2.lab
+    build:
+      context: .
+      dockerfile: build/metasploitable2.Dockerfile
+    restart: always
+    profiles:
+      - all
+      - attackdefenselab
+      - metasploitable
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1.5G
+    networks:
+      defense:
+        ipv4_address: 10.0.1.22
+
+# https://github.com/vulhub/vulhub/tree/master/bash/shellshock
+  shellshock:
+    image: vulhub/bash:4.3.0-with-httpd
+    hostname: shellshock.lab
+    volumes:
+     - ./bash/shellshock/safe.cgi:/var/www/html/safe.cgi
+     - ./bash/shellshock/victim.cgi:/var/www/html/victim.cgi
+    networks:
+      defense:
+        ipv4_address: 10.0.1.23
+    restart: unless-stopped
+##NOT SURE ABOUT THIS ONE
+
+#phpmyadmin - need a bit of work
+  phpmyadmin:
+    image: vulhub/phpmyadmin:4.8.1
+    hostname: phpmyadmin.lab
+    profiles:
+      - all
+      - attackdefenselab    
+    volumes:
+     - ./data/phpmyadmin/CVE-2018-12613/config.inc.php:/var/www/html/config.inc.php
+#    ports:
+#     - "80"
+    depends_on:
+     - mysql
+    networks:
+      defense:
+        ipv4_address: 10.0.1.24
+      monitor:
+        ipv4_address: 10.0.3.22        
+    restart: unless-stopped
+
+# MYSQL for phpmyadmin
+  mysql:
+    image: mysql:5.5
+    hostname: mysql.lab
+    profiles:
+      - all
+      - attackdefenselab    
+    environment:
+     - MYSQL_RANDOM_ROOT_PASSWORD=yes
+     - MYSQL_DATABASE=test
+     - MYSQL_USER=test
+     - MYSQL_PASSWORD=test
+    hostname: mysql
+    networks:
+      monitor:
+        ipv4_address: 10.0.3.23
+    restart: unless-stopped
+
+## Telnet Server
+  telnet:
+    build:
+      context: .
+      dockerfile: build/telnet.Dockerfile
+    hostname: telnet.lab
+    profiles:
+      - all
+      - attackdefenselab    
+    tty: true
+ #   ports:
+ #     - "23"
+    networks:
+      defense:
+        ipv4_address: 10.0.1.25
+    restart: unless-stopped
+
+# https://github.com/vulhub/vulhub/tree/master/log4j/CVE-2021-44228
+  solr-log4j:
+    image: vulhub/solr:8.11.0
+    hostname: solr.lab
+    profiles:
+      - all
+      - attackdefenselab    
+#    ports:
+#      - "8983"
+    networks:
+      defense:
+        ipv4_address: 10.0.1.26
+    restart: unless-stopped
+
+# https://github.com/vulhub/vulhub/tree/master/tomcat/tomcat8
+  tomcat:
+    image: vulhub/tomcat:8.0
+    hostname: tomcat.lab
+    volumes:
+     - ./tomcat/tomcat8/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+     - ./tomcat/tomcat8/context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml
+     - ./tomcat/tomcat8/context.xml:/usr/local/tomcat/webapps/host-manager/META-INF/context.xml
+#    ports:
+#      - "8080:8080"
+    networks:
+      defense:
+        ipv4_address: 10.0.1.27
+    restart: unless-stopped
+###END UPDATES 
 
   dvwa:
     image: 'csalab/csaf:dvwa'
