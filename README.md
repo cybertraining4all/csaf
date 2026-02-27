@@ -27,11 +27,16 @@ flowchart TD
         dvwa_monitor["DVWA Monitor"]
         wackopicko["Wackopicko"]
         juiceshop["Juiceshop"]
+        phpmyadmin["PhpMyAdmin"]
+        telnet["Telnet"]
+        solr["Solr"]
+        tomcat["Tomcat"]
     end
 
     subgraph Database["Database"]
         mariadb["MariaDB"]
         mongodb["MongoDB"]
+        mysql["MySQL]
     end
 
     subgraph Phishing["Phishing LAB"]
@@ -73,6 +78,8 @@ flowchart TD
     dvwa -->|Connect| mariadb
     dvwa -->|Sending Alert| wazuh
     dvwa -->|Sending Log| splunk
+
+    phpmyadmin -->|Connect| mysql
 
     dvwa_monitor -->|Connect| mariadb
     dvwa_monitor -->|Sending Alert| wazuh
@@ -116,6 +123,10 @@ flowchart TD
     kali_attack -->|Collect Data| mitmproxy
     kali_attack -->|Access| caldera
     kali_attack -->|Access| infection_monkey
+    kali_attack -->|Attack| phpmyadmin
+    kali_attack -->|Attack| telnet
+    kali_attack -->|Attack| solr
+    kali_attack -->|Attack| tomcat
 
     kali_defense -->|Patch Source Code| gitea
     kali_defense -->|Control Rule| bunkerweb
