@@ -36,7 +36,7 @@ flowchart TD
     subgraph Database["Database"]
         mariadb["MariaDB"]
         mongodb["MongoDB"]
-        mysql["MySQL]
+        mysql["MySQL"] 
     end
 
     subgraph Phishing["Phishing LAB"]
